@@ -17,12 +17,9 @@ namespace Pong
         // int gameTimeInterval=1;
         public Player player;
         //  public AI ai;
-        public Ball ball;
-        public ArrayList oldBalls;
         public Form form;
         public GameController controller;
         public ArrayList playerList;
-        public Line currentLine;
         public Dictionary<Player, Line> currentLines;
         public ArrayList lines;
 
@@ -52,14 +49,7 @@ namespace Pong
             Player player2 = new Player(form.Width / 2 - player.Width / 2, form.Height / 2 - player.Height / 2, 0, -3, Color.Blue, "127.0.0.1");
             playerList.Add(player2);
             currentLines[player2] = new Line(player2);
-            lines.Add(player2);
-
-            oldBalls = new ArrayList();
-
-            //ball = new Ball(3, 3);
-            //ball.Size = new Size(20, 20);
-            //ball.BackColor = Color.Red;
-            //ball.Location = new Point(form.Width / 2 - ball.Width / 2, form.Height / 2 - ball.Height / 2);
+            lines.Add(currentLines[player2]);
         }
 
         void OnGameTimeTick(object sender, EventArgs e)
@@ -67,12 +57,14 @@ namespace Pong
             //Ball newBall = ball;
             foreach(Player bike in playerList)
             {
-                //oldBalls.Add(new Ball(bike));
                 currentLines[bike].update(bike);
                 bike.move();
+                controller.CollisionGameArea(bike);
+                foreach (Line line in lines)
+                {
+                    controller.PaddleCollision(line, bike);
+                }
             }
-            //controller.CollisionGameArea(ball);
-            //controller.PaddleCollision(player, ball);
         }
 
     }

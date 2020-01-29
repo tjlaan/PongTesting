@@ -10,13 +10,17 @@ namespace Pong
     {
         Form mainForm;
 
+        // need to update this to reflect new scoring system...
         protected int PointsPlayer { get; set; }
-        public void PaddleCollision(Player player, Ball ball)
+        public void PaddleCollision(Line line, Player player)
         {
-            if (ball.Bounds.IntersectsWith(player.Bounds)) { }
-                //ball.ballSpeedX = -ball.ballSpeedX;
+            if (player.Bounds.IntersectsWith(line.Bounds)) {
+                player.playerSpeedX = 0;
+                player.playerSpeedY = 0;
+            }
+
         }
-        public void CollisionGameArea(Ball obj)
+        public void CollisionGameArea(Player obj)
         {
             if (obj.Location.Y > mainForm.Height - obj.Height * 3 || obj.Location.Y < 0)
             {
@@ -24,7 +28,7 @@ namespace Pong
             }
             else if (obj.Location.X > mainForm.Width)
             {
-                PointsPlayer += 1;
+                //PointsPlayer += 1;
                 //obj.resetBall();
             }
             else if (obj.Location.X < 0)
