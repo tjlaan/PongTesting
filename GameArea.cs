@@ -70,7 +70,9 @@ namespace Pong
                     game.player.playerSpeedY = Speed;
                     break;
             }
-            game.currentLines[game.player] = new Line(game.player);
+            Line newLine = new Line(game.player);
+            game.currentLines[game.player] = newLine;
+            game.lines.Add(newLine);
         }
 
 
