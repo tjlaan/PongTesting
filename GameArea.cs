@@ -89,6 +89,10 @@ namespace Pong
                         game.player.playerSpeedX = 0;
                         game.player.playerSpeedY = Speed;
                         break;
+                    case Keys.Enter:
+                        game.gameStarted = true;
+                        break;
+
                 }
                 Line newLine = new Line(game.player);
                 game.currentLines[game.player] = newLine;

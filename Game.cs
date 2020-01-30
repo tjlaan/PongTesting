@@ -63,15 +63,8 @@ namespace Pong
 
         void OnGameTimeTick(object sender, EventArgs e)
         {
-            //if(!gameStarted)
-            //{
-            //    if(livingPlayers.Count > 3)
-            //    {
-            //        gameStarted = true;
-            //    }
-            //} 
-            //else
-            //{
+            if (gameStarted) { 
+           
             if(livingPlayers.Count > 1)
             {
                 //Ball newBall = ball;
@@ -103,7 +96,7 @@ namespace Pong
                     form.Controls.Add(gameOver);
                     gameOver.BringToFront();
                 }
-                //}
+                }
 
             }
         }
