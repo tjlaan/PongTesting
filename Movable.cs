@@ -62,7 +62,7 @@ namespace Pong
         }
         public void showBorder()
         {
-            pictureBox.BorderStyle = BorderStyle.FixedSingle;
+            pictureBox.BorderStyle = BorderStyle.Fixed3D;
         }
     }
 }

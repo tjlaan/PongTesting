@@ -46,6 +46,8 @@ namespace Pong
 
         public void OnKeyDown(object sender, KeyEventArgs e)
         {
+            game.player.showBorder();
+
             if(game.livingPlayers.Count < 2)
             {
                 Controls.Clear();
