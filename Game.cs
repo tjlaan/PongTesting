@@ -39,6 +39,7 @@ namespace Pong
 
             Movable.mainForm = form;
             playerList = new ArrayList();
+            livingPlayers = new ArrayList();
             currentLines = new Dictionary<Player, Line>();
             lines = new ArrayList();
 
@@ -55,8 +56,6 @@ namespace Pong
 
             //Player player4 = new Player(rand);
             //createPlayer(player4);
-
-            livingPlayers = (ArrayList)playerList.Clone();
             form.startGame(player);
         }
 
@@ -99,6 +98,7 @@ namespace Pong
         public void createPlayer(Player p)
         {
             playerList.Add(p);
+            livingPlayers.Add(p);
             currentLines[p] = new Line(p);
             lines.Add(currentLines[p]);
         }
