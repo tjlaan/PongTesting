@@ -47,14 +47,14 @@ namespace Pong
             player = new Player(rand);
             createPlayer(player);
 
-            Player player2 = new Player(rand);
-            createPlayer(player2);
+            //Player player2 = new Player(rand);
+            //createPlayer(player2);
 
-            Player player3 = new Player(rand);
-            createPlayer(player3);
+            //Player player3 = new Player(rand);
+            //createPlayer(player3);
 
-            Player player4 = new Player(rand);
-            createPlayer(player4);
+            //Player player4 = new Player(rand);
+            //createPlayer(player4);
 
             livingPlayers = (ArrayList)playerList.Clone();
         }

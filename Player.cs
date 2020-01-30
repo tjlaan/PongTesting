@@ -15,6 +15,11 @@ namespace Pong
         public int playerSpeedY { set; get; }
         public bool isDead { set; get; }
 
+        public Player()
+        {
+
+        }
+
         public Player(Random rand)
         {
             Location = new Point(rand.Next(0, 1248 - 40 - 20), rand.Next(0, 720 - 60 - 20));
