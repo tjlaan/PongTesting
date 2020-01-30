@@ -17,6 +17,7 @@ namespace Pong
             if (player.Bounds.IntersectsWith(line.Bounds)) {
                 player.playerSpeedX = 0;
                 player.playerSpeedY = 0;
+                player.isDead = true;
             }
 
         }

@@ -21,9 +21,9 @@ namespace Pong
         {
 
             //InitializeComponent();
-            this.Height = GameAreaHeight;
-            this.Width = GameAreaWidth;
-            this.StartPosition = FormStartPosition.CenterScreen;
+            Height = GameAreaHeight;
+            Width = GameAreaWidth;
+            StartPosition = FormStartPosition.CenterScreen;
             game = new Game(this);
             m = new Messager();
             KeyDown += new KeyEventHandler(OnKeyDown);
@@ -35,44 +35,52 @@ namespace Pong
         }
         public void OnKeyDown(object sender, KeyEventArgs e)
         {
-            switch (e.KeyCode)
+            if(game.livingPlayers.Count < 2)
             {
-                case Keys.Left:
-                    if (game.player.playerSpeedY == 0)
-                    {
-                        return;
-                    }
-                    game.player.playerSpeedX = -Speed;
-                    game.player.playerSpeedY = 0;
-                    break;
-                case Keys.Right:
-                    if (game.player.playerSpeedY == 0)
-                    {
-                        return;
-                    }
-                    game.player.playerSpeedX = Speed;
-                    game.player.playerSpeedY = 0;
-                    break;
-                case Keys.Up:
-                    if (game.player.playerSpeedX == 0)
-                    {
-                        return;
-                    }
-                    game.player.playerSpeedX = 0;
-                    game.player.playerSpeedY = -Speed;
-                    break;
-                case Keys.Down:
-                    if (game.player.playerSpeedX == 0)
-                    {
-                        return;
-                    }
-                    game.player.playerSpeedX = 0;
-                    game.player.playerSpeedY = Speed;
-                    break;
+                Controls.Clear();
+                game = new Game(this);
             }
-            Line newLine = new Line(game.player);
-            game.currentLines[game.player] = newLine;
-            game.lines.Add(newLine);
+            else if (!game.player.isDead)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.Left:
+                        if (game.player.playerSpeedY == 0)
+                        {
+                            return;
+                        }
+                        game.player.playerSpeedX = -Speed;
+                        game.player.playerSpeedY = 0;
+                        break;
+                    case Keys.Right:
+                        if (game.player.playerSpeedY == 0)
+                        {
+                            return;
+                        }
+                        game.player.playerSpeedX = Speed;
+                        game.player.playerSpeedY = 0;
+                        break;
+                    case Keys.Up:
+                        if (game.player.playerSpeedX == 0)
+                        {
+                            return;
+                        }
+                        game.player.playerSpeedX = 0;
+                        game.player.playerSpeedY = -Speed;
+                        break;
+                    case Keys.Down:
+                        if (game.player.playerSpeedX == 0)
+                        {
+                            return;
+                        }
+                        game.player.playerSpeedX = 0;
+                        game.player.playerSpeedY = Speed;
+                        break;
+                }
+                Line newLine = new Line(game.player);
+                game.currentLines[game.player] = newLine;
+                game.lines.Add(newLine);
+            }
         }
 
 

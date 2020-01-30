@@ -12,6 +12,7 @@ namespace Pong
         public String ipaddress { set; get; }
         public int playerSpeedX { set; get; }
         public int playerSpeedY { set; get; }
+        public bool isDead { set; get; }
 
         public Player()
         {
@@ -19,6 +20,7 @@ namespace Pong
             this.Size = new Size(20, 20);
             this.playerSpeedX = 0;
             this.playerSpeedY = 3;
+            this.isDead = false;
             ipaddress = "127.0.0.1";
         }
 

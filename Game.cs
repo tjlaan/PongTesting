@@ -20,6 +20,7 @@ namespace Pong
         public Form form;
         public GameController controller;
         public ArrayList playerList;
+        public ArrayList livingPlayers;
         public Dictionary<Player, Line> currentLines;
         public ArrayList lines;
 
@@ -46,24 +47,34 @@ namespace Pong
             currentLines[player] =  new Line(player);
             lines.Add(currentLines[player]);
 
-            Player player2 = new Player(form.Width / 2 - player.Width / 2, form.Height / 2 - player.Height / 2, 0, -3, Color.Blue, "127.0.0.1");
+            Player player2 = new Player(form.Width - 10 - player.Width, form.Height / 2 - player.Height / 2, -3, 0, Color.Blue, "127.0.0.1");
             playerList.Add(player2);
             currentLines[player2] = new Line(player2);
             lines.Add(currentLines[player2]);
+
+            livingPlayers = (ArrayList)playerList.Clone();
         }
 
         void OnGameTimeTick(object sender, EventArgs e)
         {
-            //Ball newBall = ball;
-            foreach(Player bike in playerList)
+            if(livingPlayers.Count > 1)
             {
-                currentLines[bike].update(bike);
-                bike.move();
-                controller.CollisionGameArea(bike);
-                foreach (Line line in lines)
+                //Ball newBall = ball;
+                foreach (Player bike in playerList)
                 {
-                    controller.PaddleCollision(line, bike);
+                    currentLines[bike].update(bike);
+                    bike.move();
+                    controller.CollisionGameArea(bike);
+                    foreach (Line line in lines)
+                    {
+                        controller.PaddleCollision(line, bike);
+                    }
+                    if (bike.isDead)
+                    {
+                        livingPlayers.Remove(bike);
+                    }
                 }
+
             }
         }
 
