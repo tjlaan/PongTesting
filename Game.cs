@@ -25,12 +25,14 @@ namespace Pong
         public ArrayList livingPlayers;
         public Dictionary<Player, Line> currentLines;
         public ArrayList lines;
+        public bool gameStarted;
 
         public KeyEventHandler KeyDown { get; private set; }
 
         public Game(GameArea form)
         {
             this.form = form;
+            gameStarted = false;
             controller = new GameController(form);
             gameTime = new Timer();
             gameTime.Enabled = true;
@@ -61,6 +63,15 @@ namespace Pong
 
         void OnGameTimeTick(object sender, EventArgs e)
         {
+            if(!gameStarted)
+            {
+                if(livingPlayers.Count > 3)
+                {
+                    gameStarted = true;
+                }
+            } 
+            else
+            {
             if(livingPlayers.Count > 1)
             {
                 //Ball newBall = ball;
@@ -92,6 +103,8 @@ namespace Pong
                     form.Controls.Add(gameOver);
                     gameOver.BringToFront();
                 }
+                }
+
             }
         }
 
