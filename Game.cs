@@ -19,7 +19,7 @@ namespace Pong
         // int gameTimeInterval=1;
         public Player player;
         //  public AI ai;
-        public Form form;
+        public GameArea form;
         public GameController controller;
         public ArrayList playerList;
         public ArrayList livingPlayers;
@@ -28,7 +28,7 @@ namespace Pong
 
         public KeyEventHandler KeyDown { get; private set; }
 
-        public Game(Form form)
+        public Game(GameArea form)
         {
             this.form = form;
             controller = new GameController(form);
@@ -57,6 +57,7 @@ namespace Pong
             //createPlayer(player4);
 
             livingPlayers = (ArrayList)playerList.Clone();
+            form.startGame(player);
         }
 
         void OnGameTimeTick(object sender, EventArgs e)

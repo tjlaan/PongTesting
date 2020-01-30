@@ -39,6 +39,11 @@ namespace Pong
 
         }
 
+        public void startGame(Player p)
+        {
+            m.sendMessage(p);
+        }
+
         public void OnKeyDown(object sender, KeyEventArgs e)
         {
             if(game.livingPlayers.Count < 2)
