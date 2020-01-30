@@ -131,6 +131,10 @@ namespace Tron
                 {
                     if(!activePlayer)
                     {
+                        foreach (Player p in game.playerList)
+                        {
+                            m.sendMessage(p);
+                        }
                         Invoke(new Messager.MessageReceivedHandler(game.addNewPlayer), jsonPlayer);
                     }
                 }
