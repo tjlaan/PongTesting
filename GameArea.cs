@@ -30,8 +30,8 @@ namespace Pong
             StartPosition = FormStartPosition.CenterScreen;
             BackColor = Color.Black;
             m = new Messager(this);
-            game = new Game(this);
             m.MessageReceived += new Messager.MessageReceivedHandler(addPlayer);
+            game = new Game(this);
             KeyDown += new KeyEventHandler(OnKeyDown);
         }
         private void Form1_Load(object sender, EventArgs e)
