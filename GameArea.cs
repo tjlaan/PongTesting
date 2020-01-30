@@ -29,8 +29,8 @@ namespace Pong
             Width = GameAreaWidth;
             StartPosition = FormStartPosition.CenterScreen;
             BackColor = Color.Black;
-            game = new Game(this);
             m = new Messager(this);
+            game = new Game(this);
             m.MessageReceived += new Messager.MessageReceivedHandler(addPlayer);
             KeyDown += new KeyEventHandler(OnKeyDown);
         }
