@@ -100,21 +100,29 @@ namespace Pong
             JObject jsonObject = JObject.Parse(jsonPlayer);
             bool exists = false;
             string ip = (string)jsonObject.GetValue("ipaddress");
-            foreach (Player p in game.playerList)
+            if (ip == game.player.ipaddress)
             {
-                if(p != game.player && p.ipaddress == ip)
-                {
-                    if(!p.isDead)
-                    {
-                        Invoke(new UpdatePlayer(game.updatePlayer), p, jsonPlayer);
-                    }
-                    exists = true;
-                }
+                exists = true;
             } 
-
-            if(!exists)
+            else
             {
-                Invoke(new Messager.MessageReceivedHandler(game.addNewPlayer), jsonPlayer);
+                foreach (Player p in game.playerList)
+                {
+                    if (p != game.player && p.ipaddress == ip)
+                    {
+                        if (!p.isDead)
+                        {
+                            Invoke(new UpdatePlayer(game.updatePlayer), p, jsonPlayer);
+                        }
+                        exists = true;
+                    }
+                }
+
+                if (!exists)
+                {
+                    Invoke(new Messager.MessageReceivedHandler(game.addNewPlayer), jsonPlayer);
+                }
+
             }
         }
 
