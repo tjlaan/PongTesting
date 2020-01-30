@@ -98,6 +98,9 @@ namespace Pong
                 }
                 }
 
+            } else
+            {
+                form.startGame(player);
             }
         }
 

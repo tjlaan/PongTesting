@@ -14,6 +14,7 @@ namespace Pong
         public int playerSpeedX { set; get; }
         public int playerSpeedY { set; get; }
         public bool isDead { set; get; }
+        public bool isActive { set; get; }
 
         public Player()
         {
@@ -50,6 +51,7 @@ namespace Pong
             BackColor = Color.FromKnownColor(randomColorName);
             string hostName = Dns.GetHostName();
             ipaddress = Dns.GetHostByName(hostName).AddressList[0].ToString();
+            isActive = false;
         }
 
         public Player(int x, int y, int xSpeed, int ySpeed, Color color, String ip)
@@ -60,6 +62,7 @@ namespace Pong
             playerSpeedY = ySpeed;
             BackColor = color;
             ipaddress = ip;
+            isActive = false;
         }
 
         public void move()

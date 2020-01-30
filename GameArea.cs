@@ -91,6 +91,8 @@ namespace Pong
                         break;
                     case Keys.Enter:
                         game.gameStarted = true;
+                        game.player.isActive = true;
+                        m.sendMessage(game.player);
                         break;
 
                 }
@@ -104,6 +106,10 @@ namespace Pong
         public void addPlayer(string jsonPlayer)
         {
             JObject jsonObject = JObject.Parse(jsonPlayer);
+            if((bool)jsonObject.GetValue("isActive"))
+            {
+                game.gameStarted = true;
+            }
             bool exists = false;
             string ip = (string)jsonObject.GetValue("ipaddress");
             if (ip == game.player.ipaddress)
