@@ -10,8 +10,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Tron.Objects;
 
-namespace Tron
+namespace Tron.Game
 {
     class Game
     {

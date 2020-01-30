@@ -7,8 +7,10 @@ using System.Text;
 using System.Threading;
 using Newtonsoft.Json;
 using System.Windows.Forms;
+using Tron.Game;
+using Tron.Objects;
 
-namespace Tron
+namespace Tron.Networking
 {
     class Messager
     {

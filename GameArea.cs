@@ -9,8 +9,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Tron.Objects;
+using Tron.Networking;
 
-namespace Tron
+namespace Tron.Game
 {
     public partial class GameArea : Form
 

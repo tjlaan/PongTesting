@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-namespace Tron
+using Tron.Objects;
+namespace Tron.Game
 {
     public class GameController
     {
