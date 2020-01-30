@@ -47,6 +47,7 @@ namespace Pong
 
             player = new Player(rand);
             createPlayer(player);
+            form.startGame(player);
 
             //Player player2 = new Player(rand);
             //createPlayer(player2);
@@ -56,7 +57,6 @@ namespace Pong
 
             //Player player4 = new Player(rand);
             //createPlayer(player4);
-            form.startGame(player);
         }
 
         void OnGameTimeTick(object sender, EventArgs e)
