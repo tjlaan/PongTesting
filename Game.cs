@@ -68,7 +68,6 @@ namespace Tron
            
             if(livingPlayers.Count > 1)
             {
-                //Ball newBall = ball;
                 foreach (Player bike in playerList)
                 {
                     currentLines[bike].update(bike);
@@ -99,10 +98,7 @@ namespace Tron
                 }
                 }
 
-            } else
-            {
-                //form.startGame(player);
-            }
+            } 
         }
 
         public void createPlayer(Player p)

@@ -52,6 +52,15 @@ namespace Tron
                 Controls.Clear();
                 game = new Game(this);
             }
+            else if (!game.gameStarted)
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    game.gameStarted = true;
+                    game.player.isActive = true;
+                    m.sendMessage(game.player);
+                }
+            }
             else if (!game.player.isDead)
             {
                 switch (e.KeyCode)
@@ -88,12 +97,6 @@ namespace Tron
                         game.player.playerSpeedX = 0;
                         game.player.playerSpeedY = Speed;
                         break;
-                    case Keys.Enter:
-                        game.gameStarted = true;
-                        game.player.isActive = true;
-                        m.sendMessage(game.player);
-                        break;
-
                 }
                 Line newLine = new Line(game.player);
                 game.currentLines[game.player] = newLine;
