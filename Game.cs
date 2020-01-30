@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Pong
+namespace Tron
 {
     class Game
     {
@@ -48,6 +48,7 @@ namespace Pong
             Random rand = new Random();
 
             player = new Player(rand);
+            player.showBorder();
             createPlayer(player);
             form.startGame(player);
 

@@ -8,7 +8,7 @@ using System.Threading;
 using Newtonsoft.Json;
 using System.Windows.Forms;
 
-namespace Pong
+namespace Tron
 {
     class Messager
     {

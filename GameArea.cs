@@ -1,5 +1,3 @@
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,7 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-namespace Pong
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
+namespace Tron
 {
     public partial class GameArea : Form
 
@@ -30,7 +31,7 @@ namespace Pong
             StartPosition = FormStartPosition.CenterScreen;
             BackColor = Color.Black;
             m = new Messager(this);
-            m.MessageReceived += new Messager.MessageReceivedHandler(addPlayer);
+            m.MessageReceived += new Messager.MessageReceivedHandler(processMessage);
             game = new Game(this);
             KeyDown += new KeyEventHandler(OnKeyDown);
         }
@@ -46,8 +47,6 @@ namespace Pong
 
         public void OnKeyDown(object sender, KeyEventArgs e)
         {
-            game.player.showBorder();
-
             if(game.livingPlayers.Count < 2)
             {
                 Controls.Clear();
@@ -103,27 +102,25 @@ namespace Pong
             }
         }
 
-        public void addPlayer(string jsonPlayer)
+        public void processMessage(string jsonPlayer)
         {
             JObject jsonObject = JObject.Parse(jsonPlayer);
-            if((bool)jsonObject.GetValue("isActive"))
-            {
-                game.gameStarted = true;
-            }
-            bool exists = false;
             string ip = (string)jsonObject.GetValue("ipaddress");
-            if (ip == game.player.ipaddress)
+            if (ip != game.player.ipaddress)
             {
-                exists = true;
-            } 
-            else
-            {
+                bool activePlayer = (bool)jsonObject.GetValue("isActive");
+                bool exists = false;
+
                 foreach (Player p in game.playerList)
                 {
                     if (p != game.player && p.ipaddress == ip)
                     {
                         if (!p.isDead)
                         {
+                            if (activePlayer)
+                            {
+                                game.gameStarted = true;
+                            }
                             Invoke(new UpdatePlayer(game.updatePlayer), p, jsonPlayer);
                         }
                         exists = true;
@@ -132,7 +129,10 @@ namespace Pong
 
                 if (!exists)
                 {
-                    Invoke(new Messager.MessageReceivedHandler(game.addNewPlayer), jsonPlayer);
+                    if(!activePlayer)
+                    {
+                        Invoke(new Messager.MessageReceivedHandler(game.addNewPlayer), jsonPlayer);
+                    }
                 }
 
             }

@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PongTesting", "PongTesting.csproj", "{5F6EF04C-B1AA-4C4F-892E-A4089570C899}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TronGame", "TronGame.csproj", "{5F6EF04C-B1AA-4C4F-892E-A4089570C899}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

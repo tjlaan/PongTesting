@@ -6,11 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
-namespace Pong
+namespace Tron
 {
     public class Player : Movable
     {
-        public String ipaddress { set; get; }
+        public string ipaddress { set; get; }
         public int playerSpeedX { set; get; }
         public int playerSpeedY { set; get; }
         public bool isDead { set; get; }
