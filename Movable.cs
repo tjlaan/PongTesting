@@ -60,5 +60,9 @@ namespace Pong
             pictureBox = new PictureBox();
             mainForm.Controls.Add(pictureBox);
         }
+        public void showBorder()
+        {
+            pictureBox.BorderStyle = BorderStyle.FixedSingle;
+        }
     }
 }

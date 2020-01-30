@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,6 +14,8 @@ namespace Pong
     public partial class GameArea : Form
 
     {
+        public delegate void UpdatePlayer(Player p, string jsonPlayer);
+
         Messager m;
         Game game;
         const int GameAreaWidth = 1248;
@@ -24,15 +28,17 @@ namespace Pong
             Height = GameAreaHeight;
             Width = GameAreaWidth;
             StartPosition = FormStartPosition.CenterScreen;
+            BackColor = Color.Black;
             game = new Game(this);
-            m = new Messager();
+            m = new Messager(this);
+            m.MessageReceived += new Messager.MessageReceivedHandler(addPlayer);
             KeyDown += new KeyEventHandler(OnKeyDown);
-
         }
         private void Form1_Load(object sender, EventArgs e)
         {
 
         }
+
         public void OnKeyDown(object sender, KeyEventArgs e)
         {
             if(game.livingPlayers.Count < 2)
@@ -42,7 +48,6 @@ namespace Pong
             }
             else if (!game.player.isDead)
             {
-                m.sendMessage(game.player);
                 switch (e.KeyCode)
                 {
                     case Keys.Left:
@@ -81,9 +86,32 @@ namespace Pong
                 Line newLine = new Line(game.player);
                 game.currentLines[game.player] = newLine;
                 game.lines.Add(newLine);
+                m.sendMessage(game.player);
             }
         }
 
+        public void addPlayer(string jsonPlayer)
+        {
+            JObject jsonObject = JObject.Parse(jsonPlayer);
+            bool exists = false;
+            string ip = (string)jsonObject.GetValue("ipaddress");
+            foreach (Player p in game.playerList)
+            {
+                if(p != game.player && p.ipaddress == ip)
+                {
+                    if(!p.isDead)
+                    {
+                        Invoke(new UpdatePlayer(game.updatePlayer), p, jsonPlayer);
+                    }
+                    exists = true;
+                }
+            } 
+
+            if(!exists)
+            {
+                Invoke(new Messager.MessageReceivedHandler(game.addNewPlayer), jsonPlayer);
+            }
+        }
 
         private void GameArea_Paint(object sender, PaintEventArgs e)
         {

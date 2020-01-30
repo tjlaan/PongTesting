@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -40,17 +42,19 @@ namespace Pong
             currentLines = new Dictionary<Player, Line>();
             lines = new ArrayList();
 
-            player = new Player();
-            //player.Location = new Point(form.Width / 2 - player.Width / 2, player.Height / 2 - player.Height / 2);
-            player.BackColor = Color.HotPink;
-            playerList.Add(player);
-            currentLines[player] =  new Line(player);
-            lines.Add(currentLines[player]);
+            Random rand = new Random();
 
-            Player player2 = new Player(form.Width - 10 - player.Width, form.Height / 2 - player.Height / 2, -3, 0, Color.Blue, "127.0.0.1");
-            playerList.Add(player2);
-            currentLines[player2] = new Line(player2);
-            lines.Add(currentLines[player2]);
+            player = new Player(rand);
+            createPlayer(player);
+
+            Player player2 = new Player(rand);
+            createPlayer(player2);
+
+            Player player3 = new Player(rand);
+            createPlayer(player3);
+
+            Player player4 = new Player(rand);
+            createPlayer(player4);
 
             livingPlayers = (ArrayList)playerList.Clone();
         }
@@ -75,8 +79,43 @@ namespace Pong
                     }
                 }
 
+                if(livingPlayers.Count < 2)
+                {
+                    Label gameOver = new Label();
+                    gameOver.Text = "Game Over";
+                    gameOver.BackColor = Color.White;
+                    gameOver.BorderStyle = BorderStyle.FixedSingle;
+                    gameOver.Size = new Size(400, 200);
+                    gameOver.Location = new Point(form.Width / 2 - 210, form.Height / 2 - 120);
+                    gameOver.Font = new Font("Arial", 32, FontStyle.Bold);
+                    gameOver.TextAlign = ContentAlignment.MiddleCenter;
+                    form.Controls.Add(gameOver);
+                    gameOver.BringToFront();
+                }
             }
         }
 
+        public void createPlayer(Player p)
+        {
+            playerList.Add(p);
+            currentLines[p] = new Line(p);
+            lines.Add(currentLines[p]);
+        }
+
+        public void addNewPlayer(string jsonPlayer)
+        {
+            Player p = JsonConvert.DeserializeObject<Player>(jsonPlayer);
+            createPlayer(p);
+        }
+
+        public void updatePlayer(Player p, string jsonPlayer)
+        {
+            JObject jsonObject = JObject.Parse(jsonPlayer);
+            p.playerSpeedX = (int)jsonObject.GetValue("playerSpeedX");
+            p.playerSpeedY = (int)jsonObject.GetValue("playerSpeedY");
+            Line newLine = new Line(p);
+            currentLines[p] = newLine;
+            lines.Add(newLine);
+        }
     }
 }

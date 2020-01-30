@@ -6,15 +6,22 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using Newtonsoft.Json;
+using System.Windows.Forms;
 
 namespace Pong
 {
     class Messager
     {
         Thread receiver;
+        GameArea myArea;
 
-        public Messager()
+        public delegate void MessageReceivedHandler(string jsonPlayer);
+
+        public event MessageReceivedHandler MessageReceived;
+
+        public Messager(GameArea area)
         {
+            myArea = area;
             receiver = new Thread(receiveMessage);
             receiver.Start();
         }
@@ -30,7 +37,7 @@ namespace Pong
             sock.Close();
         }
 
-        public void receiveMessage()
+        private void receiveMessage()
         {
             IPEndPoint multiep = new IPEndPoint(IPAddress.Parse("239.69.69.69"), 9093);
             Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
@@ -48,6 +55,7 @@ namespace Pong
                 recv = sock.ReceiveFrom(data, ref ep);
                 stringData = Encoding.ASCII.GetString(data, 0, recv);
                 Console.WriteLine("received: {0}  from: {1}", stringData, ep.ToString());
+                MessageReceived.Invoke(stringData);
             }
         }
     }

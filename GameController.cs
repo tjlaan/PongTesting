@@ -21,20 +21,13 @@ namespace Pong
             }
 
         }
-        public void CollisionGameArea(Player obj)
+        public void CollisionGameArea(Player player)
         {
-            if (obj.Location.Y > mainForm.Height - obj.Height * 3 || obj.Location.Y < 0)
+            if (player.Location.Y + player.Size.Height + 40 > mainForm.Height || player.Location.Y < 0 || player.Location.X + player.Size.Width + 20 > mainForm.Width || player.Location.X < 0)
             {
-                //obj.ballSpeedY = -obj.ballSpeedY;
-            }
-            else if (obj.Location.X > mainForm.Width)
-            {
-                //PointsPlayer += 1;
-                //obj.resetBall();
-            }
-            else if (obj.Location.X < 0)
-            {
-                //obj.resetBall();
+                player.playerSpeedX = 0;
+                player.playerSpeedY = 0;
+                player.isDead = true;
             }
         }
 
