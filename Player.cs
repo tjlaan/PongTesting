@@ -49,7 +49,7 @@ namespace Pong
             KnownColor randomColorName = names[rand.Next(names.Length)];
             BackColor = Color.FromKnownColor(randomColorName);
             string hostName = Dns.GetHostName();
-            ipaddress = Dns.GetHostByName(hostName).AddressList[2].ToString();
+            ipaddress = Dns.GetHostByName(hostName).AddressList[0].ToString();
         }
 
         public Player(int x, int y, int xSpeed, int ySpeed, Color color, String ip)
