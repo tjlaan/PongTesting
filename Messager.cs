@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using Newtonsoft.Json;
 
 namespace Pong
 {
@@ -18,12 +19,13 @@ namespace Pong
             receiver.Start();
         }
 
-        public void sendMessage()
+        public void sendMessage(Player p)
         {
             UdpClient sock = new UdpClient();
             IPEndPoint iep = new IPEndPoint(IPAddress.Parse("239.69.69.69"), 9093);
             //IPEndPoint iep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9050);
-            byte[] data = Encoding.ASCII.GetBytes("This is a test unicast message");
+            string json = JsonConvert.SerializeObject(p);
+            byte[] data = Encoding.ASCII.GetBytes(json);
             sock.Send(data, data.Length, iep);
             sock.Close();
         }

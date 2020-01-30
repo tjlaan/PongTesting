@@ -42,6 +42,7 @@ namespace Pong
             }
             else if (!game.player.isDead)
             {
+                m.sendMessage(game.player);
                 switch (e.KeyCode)
                 {
                     case Keys.Left:
