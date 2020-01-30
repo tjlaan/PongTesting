@@ -100,7 +100,7 @@ namespace Pong
 
             } else
             {
-                form.startGame(player);
+                //form.startGame(player);
             }
         }
 
