@@ -15,8 +15,8 @@ namespace Tron
     {
         HubConnection myConnection;
         IHubProxy myProxy;
-        Thread receiver;
-        GameArea myArea;
+        /*Thread receiver;
+        GameArea myArea;*/
 
         public delegate void MessageReceivedHandler(string jsonPlayer);
 
@@ -29,7 +29,7 @@ namespace Tron
             myProxy.On<string, string>("broadcastMessage", (name, json) => MessageReceived.Invoke(json));
             myConnection.Start().Wait();
 
-            myArea = area;
+            //myArea = area;
             /*receiver = new Thread(receiveMessage);
             receiver.Start();*/
         }
@@ -47,9 +47,9 @@ namespace Tron
             myProxy.Invoke<string>("Send", "", json);
         }
 
-        private void receiveMessage()
+       /* private void receiveMessage()
         {
-            /*IPEndPoint multiep = new IPEndPoint(IPAddress.Parse("239.69.69.69"), 9093);
+            IPEndPoint multiep = new IPEndPoint(IPAddress.Parse("239.69.69.69"), 9093);
             Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             IPEndPoint iep = new IPEndPoint(IPAddress.Any, 9093);
             sock.ExclusiveAddressUse = false;
@@ -59,14 +59,14 @@ namespace Tron
             sock.Bind(iep);
             byte[] data = new byte[1024];
             string stringData;
-            int recv;*/
-            /*while (true)
+            int recv;
+            while (true)
             {
                 recv = sock.ReceiveFrom(data, ref ep);
                 stringData = Encoding.ASCII.GetString(data, 0, recv);
                 Console.WriteLine("received: {0}  from: {1}", stringData, ep.ToString());
                 MessageReceived.Invoke(stringData);
-            }*/
-        }
+            }
+        }*/
     }
 }
