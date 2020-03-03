@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.SignalR.Client;
+using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Collections.Generic;
@@ -12,6 +13,8 @@ namespace Tron
 {
     class Messager
     {
+        HubConnection myConnection;
+        IHubProxy myProxy;
         Thread receiver;
         GameArea myArea;
 
@@ -21,25 +24,32 @@ namespace Tron
 
         public Messager(GameArea area)
         {
+            myConnection = new HubConnection("https://trontest.azurewebsites.net/");
+            myProxy = myConnection.CreateHubProxy("ChatHub");
+            myProxy.On<string, string>("broadcastMessage", (name, json) => MessageReceived.Invoke(json));
+            myConnection.Start().Wait();
+
             myArea = area;
-            receiver = new Thread(receiveMessage);
-            receiver.Start();
+            /*receiver = new Thread(receiveMessage);
+            receiver.Start();*/
         }
 
         public void sendMessage(Player p)
         {
-            UdpClient sock = new UdpClient();
+            /*UdpClient sock = new UdpClient();
             IPEndPoint iep = new IPEndPoint(IPAddress.Parse("239.69.69.69"), 9093);
             //IPEndPoint iep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9050);
             string json = JsonConvert.SerializeObject(p);
             byte[] data = Encoding.ASCII.GetBytes(json);
             sock.Send(data, data.Length, iep);
-            sock.Close();
+            sock.Close();*/
+            string json = JsonConvert.SerializeObject(p);
+            myProxy.Invoke<string>("Send", "", json);
         }
 
         private void receiveMessage()
         {
-            IPEndPoint multiep = new IPEndPoint(IPAddress.Parse("239.69.69.69"), 9093);
+            /*IPEndPoint multiep = new IPEndPoint(IPAddress.Parse("239.69.69.69"), 9093);
             Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             IPEndPoint iep = new IPEndPoint(IPAddress.Any, 9093);
             sock.ExclusiveAddressUse = false;
@@ -49,14 +59,14 @@ namespace Tron
             sock.Bind(iep);
             byte[] data = new byte[1024];
             string stringData;
-            int recv;
-            while (true)
+            int recv;*/
+            /*while (true)
             {
                 recv = sock.ReceiveFrom(data, ref ep);
                 stringData = Encoding.ASCII.GetString(data, 0, recv);
                 Console.WriteLine("received: {0}  from: {1}", stringData, ep.ToString());
                 MessageReceived.Invoke(stringData);
-            }
+            }*/
         }
     }
 }

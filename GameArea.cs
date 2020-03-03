@@ -106,6 +106,7 @@ namespace Tron
         {
             JObject jsonObject = JObject.Parse(jsonPlayer);
             string ip = (string)jsonObject.GetValue("ipaddress");
+            Console.WriteLine(ip);
             if (ip != game.player.ipaddress)
             {
                 bool activePlayer = (bool)jsonObject.GetValue("isActive");
